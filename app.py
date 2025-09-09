@@ -10,8 +10,6 @@ from pyllamacpp.model import Model  # <-- note the submodule import
 
 from llama_cpp import Llama
 
-llm = Llama(model_path="./models/mistral-7b-instruct-v0.2.Q4_K_M.gguf")
-
 
 # ----------------------------------------------------------------------
 # 2️⃣ Create the FastAPI instance
