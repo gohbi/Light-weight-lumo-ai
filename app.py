@@ -37,10 +37,7 @@ MODEL_PATH = str(BASE_DIR / "models" / "mistral-7b-instruct-v0.2.Q4_K_M.gguf")
 try:
     # The current API accepts only the path (plus optional kwargs that are
     # documented in the library – `verbose` and `n_threads` are not among them.
-    llm = Model(
-        MODEL_PATH,
-        n_ctx=1024
-        )
+    llm = Model(MODEL_PATH)
 except Exception as exc:
     # Fail fast with a clear message – this will surface during import,
     # making the problem obvious.
