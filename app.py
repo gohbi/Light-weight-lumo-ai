@@ -12,10 +12,6 @@ from llama_cpp import Llama
 
 llm = Llama(model_path="./models/mistral-7b-instruct-v0.2.Q4_K_M.gguf")
 
-# Example inference
-prompt = "Tell me a story about a brave knight."
-output = llm(prompt, max_tokens=100)
-print(output["choices"][0]["text"])
 
 # ----------------------------------------------------------------------
 # 2️⃣ Create the FastAPI instance
