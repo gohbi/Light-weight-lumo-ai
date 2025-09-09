@@ -18,7 +18,6 @@ if not os.path.isfile(MODEL_PATH):
 llm = Model(
     model_path=MODEL_PATH,
     n_ctx=4096,
-    n_threads=os.cpu_count(),
     seed=42,
     verbose=False,
 )
