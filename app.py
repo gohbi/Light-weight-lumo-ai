@@ -8,14 +8,17 @@ from pyllamacpp.model import Model
 # Load the GGUF model (once, at startup)
 # -------------------------------------------------
 MODEL_PATH = os.getenv("MODEL_PATH", "models/mistral.gguf")
-if not os.path.exists(MODEL_PATH):
-    raise FileNotFoundError(f"Model not found at {MODEL_PATH}")
+if not os.path.isfile(MODEL_PATH):
+    raise FileNotFoundError(
+        f"Model not found at '{MODEL_PATH}'. "
+        "Run 'bash scripts/download_model.sh' to fetch it."
+    )
 
-# `n_ctx` = context length, adjust if you need longer windows
+# Initialise the LLM – adjust n_ctx if you need longer context windows
 llm = Model(
     model_path=MODEL_PATH,
     n_ctx=4096,
-    n_threads=os.cpu_count(),          # use all CPU cores
+    n_threads=os.cpu_count(),
     seed=42,
     verbose=False,
 )
@@ -23,7 +26,11 @@ llm = Model(
 # -------------------------------------------------
 # FastAPI definition
 # -------------------------------------------------
-app = FastAPI(title="Local‑Lumo (gguf)", version="0.1")
+app = FastAPI(
+    title="Local‑Lumo (lightweight)",
+    version="0.1",
+    description="A tiny Lumo‑style chat API using a 4‑bit GGUF model."
+)
 
 class ChatMessage(BaseModel):
     role: str   # "user" or "assistant"
@@ -37,22 +44,22 @@ class ChatResponse(BaseModel):
 
 def _format_prompt(messages: list[ChatMessage]) -> str:
     """
-    Turn a list of {role, content} dicts into a single prompt.
-    Simple format: "User: ...\nAssistant: ..."
+    Convert a list of {role, content} objects into a single prompt
+    that the model understands.
     """
     lines = []
     for msg in messages:
         prefix = "User:" if msg.role.lower() == "user" else "Assistant:"
         lines.append(f"{prefix} {msg.content}")
-    # Ensure the model knows it should continue as Assistant
+    # Tell the model it should continue as Assistant
     lines.append("Assistant:")
     return "\n".join(lines)
 
 @app.post("/chat", response_model=ChatResponse)
-def chat(req: ChatRequest):
-    prompt = _format_prompt(req.messages)
+def chat(request: ChatRequest):
+    prompt = _format_prompt(request.messages)
 
-    # Generation parameters – tweak as you like
+    # Generation parameters – feel free to tweak
     output = llm.generate(
         prompt,
         max_tokens=200,
@@ -61,6 +68,6 @@ def chat(req: ChatRequest):
         repeat_penalty=1.1,
         stop=["User:", "Assistant:"],
     )
-    # `output` includes the original prompt; strip it
+    # `output` contains the original prompt; strip it off
     reply = output[len(prompt):].strip()
     return ChatResponse(reply=reply)
