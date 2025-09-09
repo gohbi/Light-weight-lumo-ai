@@ -8,6 +8,15 @@ from typing import List, Optional
 # ----------------------------------------------------------------------
 from pyllamacpp.model import Model  # <-- note the submodule import
 
+from llama_cpp import Llama
+
+llm = Llama(model_path="./mistral-7b-instruct-v0.2.Q4_K_M.gguf")
+
+# Example inference
+prompt = "Tell me a story about a brave knight."
+output = llm(prompt, max_tokens=100)
+print(output["choices"][0]["text"])
+
 # ----------------------------------------------------------------------
 # 2️⃣ Create the FastAPI instance
 # ----------------------------------------------------------------------
@@ -28,7 +37,10 @@ MODEL_PATH = str(BASE_DIR / "models" / "mistral-7b-instruct.Q4_K_M.gguf")
 try:
     # The current API accepts only the path (plus optional kwargs that are
     # documented in the library – `verbose` and `n_threads` are not among them.
-    llm = Model(MODEL_PATH)
+    llm = Model(
+        MODEL_PATH,
+        n_ctx=1024
+        )
 except Exception as exc:
     # Fail fast with a clear message – this will surface during import,
     # making the problem obvious.
