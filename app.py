@@ -21,7 +21,9 @@ app = FastAPI(
 # 3️⃣ Load the model – **do NOT pass unsupported kwargs**
 # ----------------------------------------------------------------------
 # Adjust the path if your model lives elsewhere
-MODEL_PATH = "models/mistral-7b-instruct.Q4_K_M.gguf"
+import pathlib
+BASE_DIR = pathlib.Path(__file__).parent.resolve()
+MODEL_PATH = str(BASE_DIR / "models" / "mistral-7b-instruct.Q4_K_M.gguf")
 
 try:
     # The current API accepts only the path (plus optional kwargs that are
