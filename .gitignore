@@ -1,0 +1,18 @@
+# Python artefacts
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.egg-info/
+*.dist-info/
+*.egg
+
+# Virtual‑environment folder
+.venv/
+
+# Large model files – we keep them out of Git history
+models/*.gguf
+
+# OS‑specific junk
+.DS_Store
+Thumbs.db
