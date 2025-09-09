@@ -3,5 +3,11 @@
   "image": "mcr.microsoft.com/vscode/devcontainers/python:3.12",
   "postCreateCommand": "sudo apt-get update -qq && sudo apt-get install -y -qq build-essential cmake git libopenblas-dev libomp-dev && python -m venv .venv && source .venv/bin/activate && pip install --upgrade pip setuptools wheel && pip install numpy && pip install pyllamacpp && pip install -r requirements.txt && bash scripts/download_model.sh",
   "forwardPorts": [8000],
-  "extensions": ["ms-python.python"]
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-python.python"
+      ]
+    }
+  }
 }
