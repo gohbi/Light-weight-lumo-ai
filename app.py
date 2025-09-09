@@ -8,8 +8,6 @@ from typing import List, Optional
 # ----------------------------------------------------------------------
 from pyllamacpp.model import Model  # <-- note the submodule import
 
-from llama_cpp import Llama
-
 
 # ----------------------------------------------------------------------
 # 2️⃣ Create the FastAPI instance
