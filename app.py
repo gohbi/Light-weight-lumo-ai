@@ -10,7 +10,7 @@ from pyllamacpp.model import Model  # <-- note the submodule import
 
 from llama_cpp import Llama
 
-llm = Llama(model_path="./mistral-7b-instruct-v0.2.Q4_K_M.gguf")
+llm = Llama(model_path="./models/mistral-7b-instruct-v0.2.Q4_K_M.gguf")
 
 # Example inference
 prompt = "Tell me a story about a brave knight."
@@ -32,7 +32,7 @@ app = FastAPI(
 # Adjust the path if your model lives elsewhere
 import pathlib
 BASE_DIR = pathlib.Path(__file__).parent.resolve()
-MODEL_PATH = str(BASE_DIR / "models" / "mistral-7b-instruct.Q4_K_M.gguf")
+MODEL_PATH = str(BASE_DIR / "models" / "mistral-7b-instruct-v0.2.Q4_K_M.gguf")
 
 try:
     # The current API accepts only the path (plus optional kwargs that are
