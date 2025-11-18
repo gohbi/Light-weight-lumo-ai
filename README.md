@@ -67,6 +67,19 @@ This project is optimized for GitHub Codespaces with a pre-configured developmen
 
 ### Generate Completions
 
+You can test the API using curl, the provided example script, or any HTTP client.
+
+#### Using the Example Script
+
+The repository includes an example Python script that demonstrates API usage:
+
+```bash
+# In a new terminal (keep the API server running)
+python example_usage.py
+```
+
+#### Using curl
+
 Send a POST request to `/v1/completions` with your prompt:
 
 ```bash
@@ -103,6 +116,7 @@ Visit `http://localhost:8000/docs` for interactive API documentation powered by 
 ```
 Light-weight-lumo-ai/
 ├── app.py                  # Main FastAPI application
+├── example_usage.py        # Example script demonstrating API usage
 ├── requirements.txt        # Python dependencies
 ├── scripts/
 │   └── download_model.sh   # Model download script
