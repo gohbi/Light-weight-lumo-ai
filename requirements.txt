@@ -1,4 +1,6 @@
 fastapi
 uvicorn
+numpy
 pyllamacpp
 tqdm
+requests

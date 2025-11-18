@@ -9,8 +9,8 @@ set -euo pipefail
 MODEL_DIR="$(dirname "$(realpath "$0")")/../models"
 mkdir -p "$MODEL_DIR"
 
-# Target filename
-TARGET="${MODEL_DIR}/mistral.gguf"
+# Target filename - must match MODEL_PATH in app.py
+TARGET="${MODEL_DIR}/mistral-7b-instruct-v0.2.Q4_K_M.gguf"
 
 # If the file already exists, skip download
 if [[ -f "$TARGET" ]]; then
@@ -19,7 +19,7 @@ if [[ -f "$TARGET" ]]; then
 fi
 
 # URL of the quantised GGUF model (publicly hosted on HuggingFace)
-URL="https://huggingface.co/mistralai/Mistral-7B-Instruct-v0.1/resolve/main/mistral-7b-instruct-v0.1.Q4_K_M.gguf"
+URL="https://huggingface.co/TheBloke/Mistral-7B-Instruct-v0.2-GGUF/resolve/main/mistral-7b-instruct-v0.2.Q4_K_M.gguf"
 
 echo "Downloading Mistral‑7B‑Instruct (4‑bit GGUF)…"
 # Use curl with progress bar; fallback to wget if curl missing
